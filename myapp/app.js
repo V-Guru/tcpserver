@@ -10,17 +10,26 @@ var users = require('./routes/users');
 
 var app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+// Use the body-parser package in our application
+app.use(bodyParser.urlencoded({
+  extended: true
+}))
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname + '/public'));
+
+
+var port = process.env.PORT || 3007;
+
+var router = express.Router();
+
+router.use(function (req, res, next) {
+  // log each request to the console
+  console.log(req.method, req.url);
+  next();
+});
+
 
 app.use('/', index);
 app.use('/users', users);
