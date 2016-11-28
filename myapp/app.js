@@ -2,7 +2,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var ejs = require('ejs');
-
+var mysql = require('mysql');
 
 var app = express();
 
@@ -32,6 +32,26 @@ router.use(function (req, res, next) {
 
 router.get('/ping', function (req, res) {
     res.send('pong');
+})
+
+router.get('/insert',function(req,res){
+  
+  var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : 'root123',
+  database : 'suresh'
+});
+ 
+console.log('Connecting to mysql');
+connection.connect();
+ 
+connection.query('CREATE TABLE b123 (id VARCHAR(20))', function(err, rows, fields) {
+  if (err) throw err;
+  console.log('inserted');
+});
+ 
+connection.end();
 })
 
 app.use('/api', router);
