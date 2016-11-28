@@ -25,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
 
+var router = express.Router();
 
 var port = process.env.PORT || 3007;
 
@@ -46,7 +47,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.get('/hi',function(req,res){
+router.get('/hi',function(req,res){
   res.send('hello');
 })
 
