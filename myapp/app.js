@@ -1,22 +1,22 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+var express = require('express');
+var bodyParser = require('body-parser');
+var ejs = require('ejs');
+
 
 var app = express();
 
-app.set('view engine', 'jade');
+
+app.set('view engine', 'ejs');
+
 // Use the body-parser package in our application
 app.use(bodyParser.urlencoded({
   extended: true
 }))
 
 app.use(bodyParser.json());
+
+
 app.use(express.static(__dirname + '/public'));
 
 
@@ -30,27 +30,11 @@ router.use(function (req, res, next) {
   next();
 });
 
-
-app.use('/', index);
-app.use('/users', users);
-
-var router = express.Router();
-
-router.use(function (req, res, next) {
-  // log each request to the console
-  console.log(req.method, req.url);
-  next();
-});
-
-
-var port = process.env.PORT || 3007;
-
-router.get('/hi',function(req,res){
-  res.send('hello');
+router.get('/ping', function (req, res) {
+    res.send('pong');
 })
 
-module.exports = app;
+app.use('/api', router);
 
 app.listen(port);
 console.log('Server listening on port : ' + port);
-
