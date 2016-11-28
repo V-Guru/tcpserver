@@ -36,6 +36,13 @@ app.use('/users', users);
 
 var router = express.Router();
 
+router.use(function (req, res, next) {
+  // log each request to the console
+  console.log(req.method, req.url);
+  next();
+});
+
+
 var port = process.env.PORT || 3007;
 
 router.get('/hi',function(req,res){
