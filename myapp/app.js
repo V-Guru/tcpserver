@@ -35,7 +35,8 @@ router.get('/ping', function (req, res) {
 })
 
 router.get('/insert',function(req,res){
-  
+// req.query.id
+//req.body  
   var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
@@ -49,6 +50,7 @@ connection.connect();
 connection.query('CREATE TABLE b123 (id VARCHAR(20))', function(err, rows, fields) {
   if (err) throw err;
   console.log('inserted');
+  res.send('inserted');
 });
  
 connection.end();
