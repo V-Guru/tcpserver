@@ -43,7 +43,7 @@ router.get('/insert',function(req,res){
   database : 'suresh'
 });
  
-console.log('Connecting to mysql');
+console.log('Connecting  to mysql');
 connection.connect();
  
 connection.query('CREATE TABLE b123 (id VARCHAR(20))', function(err, rows, fields) {
